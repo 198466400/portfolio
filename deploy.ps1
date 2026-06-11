@@ -251,7 +251,10 @@ catch {
 # ============================================================================
 Log "Step 9: Final verification..."
 
-$finalCheck = Test-Path "$sitePath\index.html" -or (Test-Path "$sitePath\index.htm")
+$htmlExists = Test-Path "$sitePath\index.html"
+$htmExists = Test-Path "$sitePath\index.htm"
+$finalCheck = $htmlExists -or $htmExists
+
 if ($finalCheck) {
     Log "Portfolio is LIVE at: $sitePath" "SUCCESS"
     Log "Access via: http://localhost/portfolio" "SUCCESS"
