@@ -134,7 +134,6 @@ catch {
 Log "Step 5: Deploying portfolio files..."
 
 try {
-    # Find the best source directory
     $deploySource = $sourcePath
     foreach ($dir in @("dist", "build", "bin\Release\publish")) {
         $testPath = Join-Path $sourcePath $dir
@@ -196,34 +195,29 @@ Log "Validation passed - $($deployedFiles.Count) files deployed" "SUCCESS"
 Log "Step 7: Configuring IIS..."
 
 try {
-    # Check if WebAdministration module is available
     if (-not (Get-Module -Name WebAdministration -ErrorAction SilentlyContinue)) {
         Log "Loading WebAdministration module..." "INFO"
         Import-Module WebAdministration -ErrorAction SilentlyContinue
     }
     
-    # Check if IIS is installed
     if (Get-Command Get-WebSite -ErrorAction SilentlyContinue) {
-        # Check if portfolio site exists
         $siteExists = Get-WebSite -Name "portfolio" -ErrorAction SilentlyContinue
         
         if (-not $siteExists) {
-            Log "Creating IIS site 'portfolio'..." "INFO"
+            Log "Creating IIS site portfolio..." "INFO"
             New-WebSite -Name "portfolio" -PhysicalPath $sitePath -Port 80 -Force | Out-Null
             Log "IIS site created" "SUCCESS"
         }
         else {
-            Log "IIS site 'portfolio' already exists" "INFO"
+            Log "IIS site portfolio already exists" "INFO"
         }
         
-        # Ensure site is started
         $site = Get-WebSite -Name "portfolio"
         if ($site.State -ne "Started") {
             Start-WebSite -Name "portfolio"
-            Log "Started IIS site 'portfolio'" "SUCCESS"
+            Log "Started IIS site portfolio" "SUCCESS"
         }
         
-        # Restart IIS to apply changes
         Log "Restarting IIS..." "INFO"
         Restart-WebAppPool -Name "DefaultAppPool" -ErrorAction SilentlyContinue
         Start-Sleep -Seconds 2
@@ -260,7 +254,7 @@ Log "Step 9: Final verification..."
 $finalCheck = Test-Path "$sitePath\index.html" -or (Test-Path "$sitePath\index.htm")
 if ($finalCheck) {
     Log "Portfolio is LIVE at: $sitePath" "SUCCESS"
-    Log "You can access it via: http://localhost/portfolio (if IIS is running)" "SUCCESS"
+    Log "Access via: http://localhost/portfolio" "SUCCESS"
 }
 else {
     Log "Final verification failed!" "ERROR"
@@ -271,22 +265,21 @@ else {
 # COMPLETION SUMMARY
 # ============================================================================
 Write-Host ""
-Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║                    DEPLOYMENT COMPLETE!                    ║" -ForegroundColor Cyan
-Write-Host "╠════════════════════════════════════════════════════════════╣" -ForegroundColor Cyan
-Write-Host "║  Status:     LIVE                                          ║" -ForegroundColor Green
-Write-Host "║  Location:   $sitePath" -ForegroundColor Cyan
-Write-Host "║  Files:      $($deployedFiles.Count) deployed                                   ║" -ForegroundColor Cyan
-Write-Host "║  Logs:       $logFile" -ForegroundColor Cyan
-Write-Host "╠════════════════════════════════════════════════════════════╣" -ForegroundColor Cyan
-Write-Host "║  Your portfolio site is now LIVE!                          ║" -ForegroundColor Green
-Write-Host "║  Open File Explorer and navigate to:                       ║" -ForegroundColor Cyan
-Write-Host "║  $sitePath" -ForegroundColor Cyan
-Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "=====================================================================" -ForegroundColor Cyan
+Write-Host "DEPLOYMENT COMPLETE!" -ForegroundColor Cyan
+Write-Host "=====================================================================" -ForegroundColor Cyan
+Write-Host "Status:     LIVE" -ForegroundColor Green
+Write-Host "Location:   $sitePath" -ForegroundColor Cyan
+Write-Host "Files:      $($deployedFiles.Count) deployed" -ForegroundColor Cyan
+Write-Host "Logs:       $logFile" -ForegroundColor Cyan
+Write-Host "=====================================================================" -ForegroundColor Cyan
+Write-Host "Your portfolio site is now LIVE!" -ForegroundColor Green
+Write-Host "Access it at: http://localhost/portfolio" -ForegroundColor Cyan
+Write-Host "=====================================================================" -ForegroundColor Cyan
 Write-Host ""
 
-Log "========================================" "INFO"
+Log "======================================" "INFO"
 Log "DEPLOYMENT COMPLETED SUCCESSFULLY" "SUCCESS"
-Log "========================================" "INFO"
+Log "======================================" "INFO"
 
 exit 0
