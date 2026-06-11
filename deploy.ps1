@@ -156,7 +156,7 @@ function Deploy-Files {
         
         # Clear old files (keep backups directory)
         Write-Log "Clearing old files from site directory..." "Info"
-        Get-ChildItem -Path $SitePath -Exclude "backups" -Force | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+        Get-ChildItem -Path $SitePath -Exclude "backups" -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
         
         # Copy new files
         Write-Log "Copying new files..." "Info"
@@ -263,17 +263,17 @@ function Test-SiteAccess {
 function Get-DeploymentSummary {
     $duration = (Get-Date) - $deployStartTime
     
-    Write-Host "`n" -NoNewline
-    Write-Host "╔════════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║              DEPLOYMENT SUMMARY                                ║" -ForegroundColor Cyan
-    Write-Host "╠════════════════════════════════════════════════════════════════╣" -ForegroundColor Cyan
-    Write-Host "║ Status:              SUCCESS                                   ║" -ForegroundColor Cyan
-    Write-Host "║ Environment:         $Environment$(if ($Environment.Length -lt 27) { ' ' * (27 - $Environment.Length) })║" -ForegroundColor Cyan
-    Write-Host "║ Site Path:           $SitePath$(if ($SitePath.Length -lt 27) { ' ' * (27 - $SitePath.Length) })║" -ForegroundColor Cyan
-    Write-Host "║ Duration:            $($duration.TotalSeconds)s$(if ($duration.TotalSeconds.ToString().Length -lt 24) { ' ' * (24 - $duration.TotalSeconds.ToString().Length) })║" -ForegroundColor Cyan
-    Write-Host "║ Log File:            $logFile$(if ($logFile.Length -lt 27) { ' ' * (27 - $logFile.Length) })║" -ForegroundColor Cyan
-    Write-Host "║ Timestamp:           $timestamp$(if ($timestamp.Length -lt 27) { ' ' * (27 - $timestamp.Length) })║" -ForegroundColor Cyan
-    Write-Host "╚════════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+    Write-Host "`n"
+    Write-Host "=====================================================================" -ForegroundColor Cyan
+    Write-Host "DEPLOYMENT SUMMARY" -ForegroundColor Cyan
+    Write-Host "=====================================================================" -ForegroundColor Cyan
+    Write-Host "Status:              SUCCESS" -ForegroundColor Green
+    Write-Host "Environment:         $Environment" -ForegroundColor Cyan
+    Write-Host "Site Path:           $SitePath" -ForegroundColor Cyan
+    Write-Host "Duration:            $($duration.TotalSeconds)s" -ForegroundColor Cyan
+    Write-Host "Log File:            $logFile" -ForegroundColor Cyan
+    Write-Host "Timestamp:           $timestamp" -ForegroundColor Cyan
+    Write-Host "=====================================================================" -ForegroundColor Cyan
     Write-Host "`n"
 }
 
