@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dakota Moses — INT Protocol</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      color: #e6e6e6;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00eaff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out;
+      z-index: 9999;
+    }
+
+    /* Sigil Animation */
+    .sigil {
+      width: 140px;
+      height: 140px;
+      margin: 40px auto;
+      border: 2px solid #00eaff;
+      border-radius: 50%;
+      animation: pulse 3s infinite ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.2em;
+      font-size: 1.4rem;
+      color: #00eaff;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px #00eaff;
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 30px #00eaff;
+        transform: scale(1.08);
+      }
+      100% {
+        box-shadow: 0 0 10px #00eaff;
+        transform: scale(1);
+      }
+    }
+
+    /* Layout */
+    header {
+      padding: 30px 40px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00eaff;
+    }
+
+    .nav {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .nav span {
+      margin-left: 18px;
+      cursor: pointer;
+    }
+
+    .nav span:hover {
+      color: #00eaff;
+      opacity: 1;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #c0c0c0;
+    }
+
+    .grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      border: 1px solid #1a1a1a;
+      padding: 20px 18px;
+      border-radius: 8px;
+      background: radial-gradient(circle at top, #151515 0%, #050505 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(0, 234, 255, 0.08);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #00eaff;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #c4c4c4;
+    }
+
+    .tagline {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #777;
+    }
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 18px 40px 26px;
+      font-size: 0.8rem;
+      color: #777;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      opacity: 0.8;
+    }
+
+    footer span strong {
+      color: #00eaff;
+      font-weight: 600;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Links */
+    a {
+      color: #00eaff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
+  <header>
+    <div class="brand">INT PROTOCOL / DAKOTA MOSES</div>
+    <div class="nav">
+      <span>Systems</span>
+      <span>Tooling</span>
+      <span>Signals</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero reveal">
+      <div class="sigil">INT</div>
+      <h1>Dakota Moses</h1>
+      <h2>Secure Static • AI Systems • Field‑Grade Engineering</h2>
+      <p>
+        This node is a controlled surface for the INT Protocol—designed for secure static delivery,
+        clean interfaces, and zero‑noise execution. Every artifact here is built to be child‑safe,
+        deterministic, and ready for deployment into real‑world stacks.
+      </p>
+    </div>
+
+    <section class="grid">
+      <div class="card reveal">
+        <h3>Systems Layer</h3>
+        <p>
+          Curated environments for static hosting, Git‑driven deployment, and hardened front‑ends.
+          No runtime chaos, no hidden state—just predictable surfaces you can trust.
+        </p>
+      </div>
+
+      <div class="card reveal">
+        <h3>AI Tooling</h3>
+        <p>
+          Interfaces and workflows tuned for generative systems, protocol design, and rapid iteration.
+          Built to keep humans in control while the models do the heavy lifting.
+        </p>
+      </div>
+
+      <div class="card reveal">
+        <h3>Field Notes</h3>
+        <p>
+          Observations from diesel bays, terminals, and live stacks—where theory meets reality.
+          Every note is a signal: what works, what breaks, and what gets rebuilt stronger.
+        </p>
+      </div>
+    </section>
+
+    <div class="tagline reveal">
+      INT PROTOCOL • ONE SURFACE • NO BACKDOORS
+    </div>
+  </main>
+
+  <footer>
+    <span>© <strong>Dakota Moses</strong> — INT Protocol Node</span>
+    <span>Static channel • GitHub‑backed • TLS‑secured</span>
+  </footer>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.querySelector(".cursor");
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+
+    document.addEventListener("mousedown", () => {
+      cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
+    });
+
+    document.addEventListener("mouseup", () => {
+      cursor.style.transform = "translate(-50%, -50%) scale(1)";
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+
+    const handleReveal = () => {
+      const trigger = window.innerHeight * 0.9;
+      reveals.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < trigger) {
+          el.classList.add("visible");
+        }
+      });
+    };
+
+    document.addEventListener("scroll", handleReveal);
+    window.addEventListener("load", handleReveal);
+  </script>
+</body>
+</html>
