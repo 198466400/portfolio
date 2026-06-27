@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodedKota</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .sigil {
+      width: 200px;
+      height: 200px;
+      margin: 40px auto;
+      background: radial-gradient(circle, #ff00ff, #550055);
+      border-radius: 50%;
+      box-shadow: 0 0 40px #ff00ff;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 40px #ff00ff; }
+      50% { transform: scale(1.1); box-shadow: 0 0 80px #ff00ff; }
+      100% { transform: scale(1); box-shadow: 0 0 40px #ff00ff; }
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #222;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+<header>CodedKota</header>
+
+<div class="sigil"></div>
+
+<div class="container">
+  <div class="card">
+    <h2>Welcome</h2>
+    <p>This is the live version of your site deployed through Porkbun + GitHub.</p>
+  </div>
+
+  <div class="card">
+    <h2>About</h2>
+    <p>Full‑stack engineer, diesel tech, AI systems builder, and creator of Nexus Ragnarok.</p>
+  </div>
+
+  <div class="card">
+    <h2>Contact</h2>
+    <p>More coming soon.</p>
+  </div>
+</div>
+
+<footer>© 2026 CodedKota</footer>
+
+</body>
+</html>
