@@ -2,138 +2,195 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>CodedKota · INT Forge Protocol Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dakota Moses — INT Protocol</title>
-
+  <meta name="description" content="Dakota Moses · Full-stack engineer, diesel systems tinkerer, and INT Forge protocol architect." />
   <style>
-    body {
+    :root {
+      --bg: #05060a;
+      --bg-alt: #0b0f18;
+      --accent: #4af2a1;
+      --accent-soft: rgba(74, 242, 161, 0.12);
+      --accent-strong: #2fd47f;
+      --text: #e9edf7;
+      --muted: #9aa3b8;
+      --danger: #ff4b6b;
+      --border: #1b2333;
+      --card: #0d111a;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #0a0a0a;
-      color: #e6e6e6;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
     }
 
-    /* Custom Cursor */
-    .cursor {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #00eaff;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: transform 0.08s ease-out;
-      z-index: 9999;
-    }
-
-    /* Sigil Animation */
-    .sigil {
-      width: 140px;
-      height: 140px;
-      margin: 40px auto;
-      border: 2px solid #00eaff;
-      border-radius: 50%;
-      animation: pulse 3s infinite ease-in-out;
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #151b2c 0, #05060a 45%, #000000 100%);
+      color: var(--text);
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: 0.2em;
-      font-size: 1.4rem;
-      color: #00eaff;
+      flex-direction: column;
     }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 10px #00eaff;
-        transform: scale(1);
-      }
-      50% {
-        box-shadow: 0 0 30px #00eaff;
-        transform: scale(1.08);
-      }
-      100% {
-        box-shadow: 0 0 10px #00eaff;
-        transform: scale(1);
-      }
+    a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
-    /* Layout */
+    a:hover {
+      color: var(--accent-strong);
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 18px 40px;
+    }
+
     header {
-      padding: 30px 40px;
-      border-bottom: 1px solid #222;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
     .brand {
-      font-size: 1.1rem;
-      letter-spacing: 0.15em;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #4af2a1 0, #1b2333 40%, #05060a 100%);
+      box-shadow: 0 0 0 1px rgba(74, 242, 161, 0.4), 0 12px 30px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .brand-logo::before {
+      content: "{ }";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: #05060a;
+      font-weight: 700;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #00eaff;
+      font-weight: 600;
     }
 
-    .nav {
-      font-size: 0.9rem;
-      opacity: 0.8;
+    .brand-text span {
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    .nav span {
-      margin-left: 18px;
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(5, 6, 10, 0.8);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      padding: 7px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, rgba(74, 242, 161, 0.18), rgba(5, 6, 10, 0.9));
+      color: var(--accent);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     }
 
-    .nav span:hover {
-      color: #00eaff;
-      opacity: 1;
+    .btn:hover {
+      background: linear-gradient(135deg, rgba(74, 242, 161, 0.32), rgba(5, 6, 10, 0.95));
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-icon {
+      font-size: 14px;
     }
 
     main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .hero h1 {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
-    }
-
-    .hero h2 {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: #999;
-      margin-bottom: 30px;
-    }
-
-    .hero p {
-      max-width: 640px;
-      margin: 0 auto;
-      font-size: 0.98rem;
-      line-height: 1.6;
-      color: #c0c0c0;
-    }
-
-    .grid {
-      margin-top: 60px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-actions {
+        align-self: stretch;
+        justify-content: space-between;
+      }
     }
 
     .card {
-      border: 1px solid #1a1a1a;
-      padding: 20px 18px;
-      border-radius: 8px;
-      background: radial-gradient(circle at top, #151515 0%, #050505 70%);
+      background: linear-gradient(145deg, #0b0f18, #05060a);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
       position: relative;
       overflow: hidden;
     }
@@ -141,170 +198,756 @@
     .card::before {
       content: "";
       position: absolute;
-      inset: 0;
-      border: 1px solid rgba(0, 234, 255, 0.08);
-      border-radius: 8px;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(74, 242, 161, 0.12) 0, transparent 55%);
+      opacity: 0.9;
       pointer-events: none;
     }
 
-    .card h3 {
-      font-size: 1rem;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #00eaff;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      border: 1px solid rgba(74, 242, 161, 0.5);
+      padding: 4px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: rgba(5, 6, 10, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 720px) {
+      .hero-body {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-text h2 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .hero-text p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
       margin-bottom: 10px;
     }
 
-    .card p {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #c4c4c4;
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
-    .tagline {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 0.85rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #777;
+    .meta-chip {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(5, 6, 10, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    footer {
-      border-top: 1px solid #222;
-      padding: 18px 40px 26px;
-      font-size: 0.8rem;
-      color: #777;
+    .meta-chip strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-visual {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 20% 0, rgba(74, 242, 161, 0.18) 0, #05060a 45%, #000000 100%);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-visual-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    footer span {
-      opacity: 0.8;
+    .hero-visual-title {
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
 
-    footer span strong {
-      color: #00eaff;
+    .hero-visual-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .hero-visual-body {
+      background: rgba(5, 6, 10, 0.9);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(74, 242, 161, 0.3);
+      padding: 8px 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .kv {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .kv-key {
+      color: var(--muted);
+    }
+
+    .kv-value {
+      color: var(--accent);
+    }
+
+    .kv-value-danger {
+      color: var(--danger);
+    }
+
+    .section {
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .project-card {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(5, 6, 10, 0.9);
+      padding: 10px 11px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 720px) {
+      .project-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .project-title {
+      font-size: 13px;
       font-weight: 600;
+      margin-bottom: 4px;
     }
 
-    /* Scroll reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    .project-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
     }
 
-    /* Links */
-    a {
-      color: #00eaff;
-      text-decoration: none;
+    .tag {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: rgba(5, 6, 10, 0.9);
     }
 
-    a:hover {
-      text-decoration: underline;
+    .tag-accent {
+      border-color: rgba(74, 242, 161, 0.5);
+      color: var(--accent);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .project-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(5, 6, 10, 0.9);
+      color: var(--muted);
+    }
+
+    .project-links a span {
+      font-size: 12px;
+    }
+
+    .project-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: grid;
+      gap: 4px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+    }
+
+    .meta-value {
+      color: var(--accent);
+    }
+
+    .meta-value-soft {
+      color: var(--muted);
+    }
+
+    .side-card {
+      background: linear-gradient(145deg, #05060a, #0b0f18);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 100% 0, rgba(74, 242, 161, 0.16) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .side-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 10px;
+    }
+
+    .side-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .side-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .side-block {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(5, 6, 10, 0.9);
+      padding: 8px 9px;
+    }
+
+    .side-block-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .side-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+    }
+
+    .side-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .side-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+    }
+
+    .side-value {
+      color: var(--accent);
+    }
+
+    .side-value-soft {
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 10px 18px 18px;
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid rgba(27, 35, 51, 0.7);
+      background: radial-gradient(circle at bottom, #0b0f18 0, #05060a 40%, #000000 100%);
+    }
+
+    @media (max-width: 720px) {
+      footer {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Custom Cursor -->
-  <div class="cursor"></div>
-
-  <header>
-    <div class="brand">INT PROTOCOL / DAKOTA MOSES</div>
-    <div class="nav">
-      <span>Systems</span>
-      <span>Tooling</span>
-      <span>Signals</span>
-    </div>
-  </header>
-
-  <main>
-    <div class="hero reveal">
-      <div class="sigil">INT</div>
-      <h1>Dakota Moses</h1>
-      <h2>Secure Static • AI Systems • Field‑Grade Engineering</h2>
-      <p>
-        This node is a controlled surface for the INT Protocol—designed for secure static delivery,
-        clean interfaces, and zero‑noise execution. Every artifact here is built to be child‑safe,
-        deterministic, and ready for deployment into real‑world stacks.
-      </p>
-    </div>
-
-    <section class="grid">
-      <div class="card reveal">
-        <h3>Systems Layer</h3>
-        <p>
-          Curated environments for static hosting, Git‑driven deployment, and hardened front‑ends.
-          No runtime chaos, no hidden state—just predictable surfaces you can trust.
-        </p>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <h1>CodedKota</h1>
+          <span>Dakota Moses · INT Forge Protocol Architect</span>
+        </div>
       </div>
-
-      <div class="card reveal">
-        <h3>AI Tooling</h3>
-        <p>
-          Interfaces and workflows tuned for generative systems, protocol design, and rapid iteration.
-          Built to keep humans in control while the models do the heavy lifting.
-        </p>
+      <div class="header-actions">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Herald Lite · Safe Surface Runtime</span>
+        </div>
+        <button class="btn" onclick="scrollToSection('projects')">
+          <span class="btn-icon">⟶</span>
+          <span>View Projects</span>
+        </button>
       </div>
+    </header>
 
-      <div class="card reveal">
-        <h3>Field Notes</h3>
-        <p>
-          Observations from diesel bays, terminals, and live stacks—where theory meets reality.
-          Every note is a signal: what works, what breaks, and what gets rebuilt stronger.
-        </p>
-      </div>
-    </section>
+    <main>
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">INT Protocol · Personal Forge</div>
+            <div class="card-subtitle">
+              A controlled surface where Dakota experiments, fails on purpose, and turns it into architecture.
+            </div>
+          </div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Live · CodedKota.com</span>
+          </div>
+        </div>
 
-    <div class="tagline reveal">
-      INT PROTOCOL • ONE SURFACE • NO BACKDOORS
-    </div>
-  </main>
+        <div class="hero-body">
+          <div class="hero-text">
+            <h2>Hands-on full-stack, diesel systems, and generative AI—under one protocol.</h2>
+            <p>
+              This hub is not a portfolio in the traditional sense. It’s a forge: a place where
+              engines, code, and ideas are broken on purpose, then rebuilt with intention. Every
+              project here is wired through a safety-first mindset—Herald Lite style—so nothing
+              sharp leaks into the hands of kids or clients.
+            </p>
+            <div class="hero-meta">
+              <div class="meta-chip">
+                <strong>INT Forge:</strong> Personal protocol for experiments, failure, and wisdom.
+              </div>
+              <div class="meta-chip">
+                <strong>Herald Lite:</strong> Security posture for child-safe, low-attack-surface tools.
+              </div>
+              <div class="meta-chip">
+                <strong>Domains:</strong> Game dev · Diesel diagnostics · Generative AI · Full-stack.
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn" onclick="scrollToSection('security')">
+                <span class="btn-icon">⚡</span>
+                <span>Security & Protocols</span>
+              </button>
+              <button class="btn" onclick="scrollToSection('projects')">
+                <span class="btn-icon">📂</span>
+                <span>Project Index</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-visual-header">
+              <div class="hero-visual-title">INT Forge · Runtime Snapshot</div>
+              <div class="hero-visual-status">
+                <span class="status-dot"></span>
+                <span>Stable · Public Surface</span>
+              </div>
+            </div>
+            <div class="hero-visual-body">
+              <div class="kv">
+                <span class="kv-key">Surface Mode</span>
+                <span class="kv-value">Herald Lite · Read-only</span>
+              </div>
+              <div class="kv">
+                <span class="kv-key">Attack Surface</span>
+                <span class="kv-value-danger">Minimized · No direct execution</span>
+              </div>
+              <div class="kv">
+                <span class="kv-key">Child Safety</span>
+                <span class="kv-value">No exploits · No dark patterns</span>
+              </div>
+              <div class="kv">
+                <span class="kv-key">Live Projects</span>
+                <span class="kv-value">Game, Diesel, AI, Portfolio</span>
+              </div>
+              <div class="kv">
+                <span class="kv-key">Owner</span>
+                <span class="kv-value">Dakota Moses · 33</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="projects" class="section">
+          <div class="section-title">Project index · wired through INT Forge</div>
+          <div class="grid">
+            <!-- Nexus Ragnarok -->
+            <article class="project-card">
+              <div>
+                <div class="project-title">Nexus Ragnarok · Game Universe</div>
+                <div class="project-subtitle">
+                  A long-form game world where systems, lore, and mechanics are treated like living code.
+                </div>
+                <div class="project-tags">
+                  <span class="tag tag-accent">Game Dev</span>
+                  <span class="tag">Lore Systems</span>
+                  <span class="tag">Design Bible</span>
+                  <span class="tag">INT Forge</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/198466400" target="_blank" rel="noopener">
+                    <span>↗</span>
+                    <span>GitHub · Nexus-related repos</span>
+                  </a>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div class="meta-row">
+                  <span class="meta-label">Status</span>
+                  <span class="meta-value-soft">Active · In Forge</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Focus</span>
+                  <span class="meta-value">Systems, narrative, safe experimentation</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Security</span>
+                  <span class="meta-value-soft">No live exploit surface · Design-only</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Diesel Diagnostic Tooling -->
+            <article class="project-card">
+              <div>
+                <div class="project-title">Diesel Diagnostic Tooling · Scan & Insight</div>
+                <div class="project-subtitle">
+                  Apprentice diesel mechanic experience turned into tooling ideas: scan tools, data views,
+                  and safe interfaces for real engines.
+                </div>
+                <div class="project-tags">
+                  <span class="tag tag-accent">Diesel</span>
+                  <span class="tag">Diagnostics</span>
+                  <span class="tag">Tooling</span>
+                  <span class="tag">Safety-first</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/198466400" target="_blank" rel="noopener">
+                    <span>↗</span>
+                    <span>GitHub · Diesel concepts & scripts</span>
+                  </a>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div class="meta-row">
+                  <span class="meta-label">Status</span>
+                  <span class="meta-value-soft">Conceptual · Under Forge</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Focus</span>
+                  <span class="meta-value">Readable data, no unsafe control paths</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Security</span>
+                  <span class="meta-value-soft">Herald Lite · Observation only</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Portfolio Repo -->
+            <article class="project-card">
+              <div>
+                <div class="project-title">Public Portfolio · GitHub 198466400/portfolio</div>
+                <div class="project-subtitle">
+                  A public-facing portfolio that barely scratches the surface of what’s actually possible.
+                  It’s a snapshot, not the whole story.
+                </div>
+                <div class="project-tags">
+                  <span class="tag tag-accent">Full-stack</span>
+                  <span class="tag">Web</span>
+                  <span class="tag">Showcase</span>
+                  <span class="tag">INT Protocol</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/198466400/portfolio" target="_blank" rel="noopener">
+                    <span>↗</span>
+                    <span>GitHub · Portfolio repo</span>
+                  </a>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div class="meta-row">
+                  <span class="meta-label">Status</span>
+                  <span class="meta-value-soft">Live · Public</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Focus</span>
+                  <span class="meta-value">Narrative, skills, failure-as-wisdom</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Security</span>
+                  <span class="meta-value-soft">Static · No execution surface</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Generative AI & INT Forge -->
+            <article class="project-card">
+              <div>
+                <div class="project-title">Generative AI · INT Forge Architectures</div>
+                <div class="project-subtitle">
+                  Upskill Generative AI Mastermind work, reimagined as protocols: how AI systems should
+                  behave in safe, controlled environments.
+                </div>
+                <div class="project-tags">
+                  <span class="tag tag-accent">Generative AI</span>
+                  <span class="tag">Protocols</span>
+                  <span class="tag">Safety</span>
+                  <span class="tag">Design</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/198466400" target="_blank" rel="noopener">
+                    <span>↗</span>
+                    <span>GitHub · AI-related experiments</span>
+                  </a>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div class="meta-row">
+                  <span class="meta-label">Status</span>
+                  <span class="meta-value-soft">Ongoing · Protocol design</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Focus</span>
+                  <span class="meta-value">Safe generative surfaces, no dark UX</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Security</span>
+                  <span class="meta-value-soft">Herald Lite · Concept-only</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-card" id="security">
+        <div class="side-header">
+          <div class="side-title">Security posture · Herald Lite</div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Child-safe · Low surface</span>
+          </div>
+        </div>
+        <div class="side-body">
+          <div class="side-block">
+            <div class="side-block-title">Herald Lite · Principles</div>
+            <ul class="side-list">
+              <li>
+                <span class="side-label">Surface</span>
+                <span class="side-value">Static only · No direct execution</span>
+              </li>
+              <li>
+                <span class="side-label">Inputs</span>
+                <span class="side-value-soft">No untrusted code paths</span>
+              </li>
+              <li>
+                <span class="side-label">Audience</span>
+                <span class="side-value">Safe for kids to click around</span>
+              </li>
+              <li>
+                <span class="side-label">Data</span>
+                <span class="side-value-soft">No sensitive storage on client</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="side-block">
+            <div class="side-block-title">INT Forge · Personal Protocol</div>
+            <ul class="side-list">
+              <li>
+                <span class="side-label">Core</span>
+                <span class="side-value">Failure as a deliberate tool</span>
+              </li>
+              <li>
+                <span class="side-label">Scope</span>
+                <span class="side-value-soft">Game, diesel, AI, web</span>
+              </li>
+              <li>
+                <span class="side-label">Rule</span>
+                <span class="side-value">No harm, no chaos for others</span>
+              </li>
+              <li>
+                <span class="side-label">Output</span>
+                <span class="side-value-soft">Architectures, not just apps</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="side-block">
+            <div class="side-block-title">Contact & Presence</div>
+            <ul class="side-list">
+              <li>
+                <span class="side-label">GitHub</span>
+                <span class="side-value">
+                  <a href="https://github.com/198466400" target="_blank" rel="noopener">198466400</a>
+                </span>
+              </li>
+              <li>
+                <span class="side-label">LinkedIn</span>
+                <span class="side-value-soft">
+                  Active · Notifications tuned
+                </span>
+              </li>
+              <li>
+                <span class="side-label">Location</span>
+                <span class="side-value-soft">Cleburne, Texas · CDT</span>
+              </li>
+              <li>
+                <span class="side-label">Mode</span>
+                <span class="side-value-soft">Hands-on · No fluff</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
 
   <footer>
-    <span>© <strong>Dakota Moses</strong> — INT Protocol Node</span>
-    <span>Static channel • GitHub‑backed • TLS‑secured</span>
+    <span>© <span id="year"></span> Dakota Moses · CodedKota · INT Forge Protocol.</span>
+    <span>Built as a safe surface: no exploits, no tricks—just a clear view of the work.</span>
   </footer>
 
   <script>
-    // Custom cursor logic
-    const cursor = document.querySelector(".cursor");
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-    });
-
-    document.addEventListener("mousedown", () => {
-      cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
-    });
-
-    document.addEventListener("mouseup", () => {
-      cursor.style.transform = "translate(-50%, -50%) scale(1)";
-    });
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll(".reveal");
-
-    const handleReveal = () => {
-      const trigger = window.innerHeight * 0.9;
-      reveals.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < trigger) {
-          el.classList.add("visible");
-        }
-      });
-    };
-
-    document.addEventListener("scroll", handleReveal);
-    window.addEventListener("load", handleReveal);
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
